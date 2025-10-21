@@ -1,0 +1,33 @@
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 16px;
+    background-color: #2f4f30;
+    color: antiquewhite;
+}
+
+header{
+    background-color: black;
+    padding: 1rem;
+}
+
+.titulo{
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.carta{
+    position: relative;
+    width: 15rem;
+    left: 10rem;
+    margin-left: -7.5rem;
+}
+
+.grilla{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+}
