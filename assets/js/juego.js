@@ -15,6 +15,7 @@ let puntosJugador = 0,
 // Referencias al HTML
 const btnPedir = document.querySelector('#btnPedir');
 const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
 
 const mostrarPts = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
@@ -72,6 +73,7 @@ const valorCarta = (carta)=>{
 
 // Funcion turno computadora
 const turnoComputadora = (puntosMinimos) => {
+    let icono, titulo, texto;
     do{
         const carta = pedirCarta();
 
@@ -88,6 +90,37 @@ const turnoComputadora = (puntosMinimos) => {
         }
     
     }while((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+    setTimeout(()=>{
+        if(puntosComputadora === puntosMinimos){
+            icono = 'info';
+            titulo = 'Empate!!';
+            texto = 'Nadie gana...:(';
+            // alert('Nadie gana... :(');
+        }else if(puntosMinimos > 21){
+            icono = 'error';
+            titulo = 'Perdiste!!';
+            texto = 'Comptudora gana!!';
+            // alert('Computadora gana!!');
+        }else if(puntosComputadora > 21){
+            icono = 'success';
+            titulo = 'Ganaste!!';
+            texto = 'Jugador gana!!';
+            //alert('Jugador gana!!');
+        }else{
+            icono = 'error';
+            titulo = 'Perdiste!!';
+            texto = 'Comptudora gana!!';
+            //alert('Computadora gana!!');
+        }
+
+        Swal.fire({
+            icon: `${icono}`,
+            title: `${titulo}`,
+            text: `${texto}`,
+            footer: '<a href="index.html">Queres jugar una nueva partida?</a>'
+        });
+    },20);
 }
 
 // Eventos
@@ -119,4 +152,22 @@ btnDetener.addEventListener('click', ()=>{
     btnPedir.disabled = true;
     btnDetener.disabled = true;
     turnoComputadora(puntosJugador);
+});
+
+btnNuevo.addEventListener('click', ()=>{
+    deck = [];
+    deck = crearDeck();
+
+    puntosJugador = 0;
+    puntosComputadora = 0;
+
+    mostrarPts[0].innerText = 0;
+    mostrarPts[1].innerText = 0;
+
+    divCartasJugador.innerHTML = '';
+    divCartasComputadora.innerHTML = '';
+
+    btnPedir.disabled = false;
+    btnDetener.disabled = false;
+
 });
